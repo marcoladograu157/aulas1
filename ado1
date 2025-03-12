@@ -1,0 +1,86 @@
+public class Main {
+ public static int somaVetor(int[] vetor) {
+ int soma = 0;
+ for (int i = 0; i < vetor.length; i++) {
+ soma += vetor[i];
+ }
+ return soma;
+ }
+ public static void main(String[] args) {
+ int[] vetor = {1, 2, 3, 4, 5};
+ System.out.println("A soma dos elementos do vetor é: " + somaVetor(vetor));
+ }
+}
+EX2:
+public class ex2 {
+ public static int maiorVetor(int[] vetor) {
+ int maior = vetor[0];
+ for (int i = 0; i < vetor.length; i++) {
+ if (vetor[i]>maior){
+ maior = vetor[i];
+ }
+ }
+ return maior;
+ }
+ public static void main(String[] args) {
+ int[] vetor = {1, 2, 3, 4, 5};
+ System.out.println("Maior vetor é "+maiorVetor(vetor));
+ }
+}
+ex3:
+public class ex3 {
+ public static void main(String[] args) {
+ int[] vetor = {1, 2, 3, 4, 5};
+ int elemento = 3;
+ int maior = vetor[0];
+ boolean elementoEncontrado = false;
+ for (int i = 0; i < vetor.length; i++) {
+ if (vetor[i] == elemento) {
+ elementoEncontrado = true;
+ }
+ if (vetor[i] > maior) {
+ maior = vetor[i];
+ }
+ }
+ if (elementoEncontrado) {
+ System.out.println("O elemento " + elemento + " está presente no vetor.");
+ } else {
+ System.out.println("O elemento " + elemento + " não está presente no 
+vetor.");
+ }
+ System.out.println("Maior valor do vetor é " + maior);
+ }
+ }
+ex4:
+public class ex4 {
+ public static void main(String[] args) {
+ int[] vetor = {1,2};
+ double media = calcularMedia(vetor);
+ System.out.println("A média dos elementos do vetor é: " + media);
+ }
+ public static double calcularMedia(int[] vetor) {
+ int soma = 0;
+ for (int i = 0; i < vetor.length; i++) {
+ soma += vetor[i];
+ }
+ return (double) soma / vetor.length;
+ }
+ }
+ex5: public class ex5 {
+ public static boolean ordemCrescente(int[] vetor) {
+ for (int i = 0; i < vetor.length - 1; i++) {
+ if (vetor[i] > vetor[i + 1]) {
+ return false;
+ }
+ }
+ return true;
+ }
+ public static void main(String[] args) {
+ int[] vetor = {1, 2, 3, 4,5 };
+ if (ordemCrescente(vetor)) {
+ System.out.println("Os elementos estão em ordem crescente.");
+ } else {
+ System.out.println("Os elementos não estão em ordem crescente.");
+ }
+ }
+}
