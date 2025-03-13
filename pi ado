@@ -1,0 +1,170 @@
+let poltronasJanela = Array(24).fill(0); // cadeiras na janela
+let poltronasCorredor = Array(24).fill(0); // cadeiras no corredor
+//reservando as poltronas
+poltronasJanela[0] = 1;
+poltronasJanela[1] = 1;
+poltronasCorredor[0]=1;
+poltronasCorredor[1]=1;
+// Função 1: Vender passagem
+function venderPassagem() {
+    let tipoPoltrona = document.getElementById("tipoPoltrona").value;
+    let numeroPoltrona = parseInt(document.getElementById("numeroPoltrona").value) - 1;
+    let reservaIdoso = document.getElementById("reservaIdoso").checked;
+
+    if (numeroPoltrona < 0 || numeroPoltrona > 23) {
+        alert("Número de poltrona inválido! Digite um número de 1 a 24.");
+        return;
+    }
+
+    if (reservaIdoso) {
+        if (numeroPoltrona === 0 || numeroPoltrona === 1) {
+            alert("Poltrona na Janela número " + (numeroPoltrona + 1) + " liberada para idoso.");
+            poltronasJanela[numeroPoltrona] = 0; 
+            return; 
+        } else if (numeroPoltrona === 2 || numeroPoltrona === 3) {
+            alert("Poltrona no Corredor número " + (numeroPoltrona + 1) + " liberada para idoso.");
+            poltronasCorredor[numeroPoltrona] = 0; 
+            return; 
+        }
+    }
+
+
+    if (tipoPoltrona == 0) {
+        // Poltrona na janela
+        if (poltronasJanela[numeroPoltrona] === 0) {
+            poltronasJanela[numeroPoltrona] = 1; // Marca como ocupada
+            alert("Venda realizada com sucesso! Poltrona na Janela número " + (numeroPoltrona + 1) + " ocupada.");
+        } else {
+            alert("Poltrona já reservada. Venda não realizada!");
+        }
+    } else if (tipoPoltrona == 1) {
+        // Poltrona no corredor
+        if (poltronasCorredor[numeroPoltrona] === 0) {
+            poltronasCorredor[numeroPoltrona] = 1; // Marca como ocupada
+            alert("Venda realizada com sucesso! Poltrona no Corredor número " + (numeroPoltrona + 1) + " ocupada.");
+        } else {
+            alert("Poltrona já reservada. Venda não realizada!");
+        }
+    }
+}
+// Função 2: Cancelar passagem
+function cancelarPassagem() {
+    let tipoPoltrona = document.getElementById("tipoPoltrona").value;
+    let numeroPoltrona = parseInt(document.getElementById("numeroPoltrona").value) - 1;
+
+    if (numeroPoltrona < 0 || numeroPoltrona > 23) {
+        alert("Número de poltrona inválido! Digite um número de 1 a 24.");
+        return;
+    }
+
+    if (tipoPoltrona == 0) {
+        // Poltrona na janela
+        if (poltronasJanela[numeroPoltrona] === 1) {
+            poltronasJanela[numeroPoltrona] = 0;
+            alert("Compra cancelada com sucesso! Poltrona na Janela número " + (numeroPoltrona + 1) + " desocupada.");
+        } else {
+            alert("Poltrona livre. Compra não cancelada!");
+        }
+    } else if (tipoPoltrona == 1) {
+        // Poltrona no corredor
+        if (poltronasCorredor[numeroPoltrona] === 1) {
+            poltronasCorredor[numeroPoltrona] = 0;
+            alert("Compra cancelada com sucesso! Poltrona no Corredor número " + (numeroPoltrona + 1) + " desocupada.");
+        } else {
+            alert("Poltrona livre. Compra não cancelada!");
+        }
+    } else {
+        alert("Opção inválida. Tente novamente.");
+    }
+}
+
+// Função 3: Mostrar mapa de ocupação
+function mostrarMapaOcupacao() {
+    let mapaDiv = document.getElementById("mapa");
+    mapaDiv.innerHTML = "<h3>Mapa de Ocupação:</h3>";
+
+    let mapa = "Poltronas na Janela:\n";
+    poltronasJanela.forEach((poltrona, index) => {
+        mapa += `${index + 1} - ${poltrona === 0 ? "Livre" : "Ocupada"}\n`;
+    });
+
+    mapa += "\nPoltronas no Corredor:\n";
+    poltronasCorredor.forEach((poltrona, index) => {
+        mapa += `${index + 1} - ${poltrona === 0 ? "Livre" : "Ocupada"}\n`;
+    });
+
+    mapaDiv.innerHTML += "<pre>" + mapa + "</pre>";
+}
+
+// Função para sair
+function sair () {
+    alert("Saindo até a proxima...");
+        }
+
+
+
+html :
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Poltronas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .menu {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        .menu li {
+            margin: 10px 0;
+        }
+        #mapa {
+            margin-top: 20px;
+        }
+        #mapa pre {
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Gerenciamento de Poltronas</h1>
+
+    <ul class="menu">
+        <li>
+            <label for="tipoPoltrona">Tipo de poltrona:</label>
+            <select id="tipoPoltrona">
+                <option value="0">Janela</option>
+                <option value="1">Corredor</option>
+            </select>
+        </li>
+        <li>
+            <label for="numeroPoltrona">Número da poltrona (1-24):</label>
+            <input type="number" id="numeroPoltrona" min="1" max="24">
+        </li>
+        <li>
+            <input type="checkbox" id="reservaIdoso">
+            <label for="reservaIdoso">Reserva para Idoso</label>
+        </li>
+        <li><button onclick="venderPassagem()">Vender Passagem</button></li>
+        <li><button onclick="cancelarPassagem()">Cancelar Passagem</button></li>
+        <li><button onclick="mostrarMapaOcupacao()">Mostrar Mapa de Ocupação</button></li>
+        <li><button onclick="sair()">Sair</button></li>
+    </ul>
+
+    <div id="mapa"></div>
+
+    <script src="ado.js"></script>
+
+</body>
+</html>
